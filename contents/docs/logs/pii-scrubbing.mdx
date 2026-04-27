@@ -15,9 +15,12 @@ When PII scrubbing is enabled, PostHog scans your log payloads during ingestion 
 The scrubbing applies to:
 
 - **Log body** (both JSON and plain text)
-- **Log attributes**
-- **Resource attributes**
-- **Service name, instrumentation scope, and event name**
+- **Log attribute values** — the values in your log attributes are scrubbed, but attribute keys are preserved
+
+The following fields are **not** scrubbed:
+
+- **Resource attributes** — these are preserved as-is
+- **Service name**, **instrumentation scope**, **severity text**, and **event name**
 
 <CalloutBox icon="IconWarning" title="Lossy redaction" type="warning">
 
