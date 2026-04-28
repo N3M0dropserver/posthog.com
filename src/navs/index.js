@@ -6527,34 +6527,12 @@ export const docsMenu = {
                     color: 'blue',
                 },
                 {
-<<<<<<< HEAD
-                    name: 'Guides',
-                },
-                {
-                    name: 'Logging best practices',
-                    url: '/docs/logs/best-practices',
-                    icon: 'IconBook',
-                    color: 'green',
-                },
-                {
                     name: 'PII scrubbing',
                     url: '/docs/logs/pii-scrubbing',
                     icon: 'IconShield',
                     color: 'purple',
                 },
                 {
-||||||| b7ad9375f
-                    name: 'Guides',
-                },
-                {
-                    name: 'Logging best practices',
-                    url: '/docs/logs/best-practices',
-                    icon: 'IconBook',
-                    color: 'green',
-                },
-                {
-=======
->>>>>>> master
                     name: 'PostHog AI',
                 },
                 {
