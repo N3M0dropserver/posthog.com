@@ -33,6 +33,7 @@ To link Postgres:
 
 The data warehouse then starts syncing your Postgres data. You can see details and progress in the [sources tab](https://app.posthog.com/data-management/sources).
 
+<<<<<<< HEAD
 ## CDC (Change Data Capture)
 
 CDC is the recommended sync method for Postgres. It uses logical replication to capture inserts, updates, and deletes in real-time without full table scans.
@@ -63,6 +64,13 @@ With self-managed CDC, after selecting your tables, a modal shows the SQL comman
 
 Run these commands, then click **Verify & create** to confirm the publication exists. PostHog then creates the replication slot and sets up syncing.
 
+||||||| 91a8a4030
+=======
+## Configuration
+
+<SourceParameters />
+
+>>>>>>> master
 <CalloutBox icon="IconWarning" title="SSL/TLS required for new sources" type="caution">
 
 PostgreSQL sources created after February 18, 2026 require SSL/TLS encryption for database connections. Ensure your PostgreSQL database supports SSL/TLS connections before linking. Existing sources created before this date are not affected. If you're connecting through an SSH tunnel, you can optionally disable TLS using the **Require TLS through tunnel?** toggle since the tunnel already encrypts the connection.
