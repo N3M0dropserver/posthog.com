@@ -8,7 +8,7 @@ import CustomerAnalyticsBetaWarning from './_snippets/customer-analytics-beta-wa
 
 <CustomerAnalyticsBetaWarning />
 
-Usage metrics let you define global activity measurements and track them for each customer. Any event performed by your users can become a usage metric, giving you an at-a-glance view of customer activity to identify expansion opportunities or churn risk.
+Usage metrics let you define global activity measurements and track them for each customer. You can create metrics from PostHog events or from data in your [Data Warehouse](/docs/data-warehouse)—like Stripe charges or Salesforce records. This gives you an at-a-glance view of customer activity to identify expansion opportunities or churn risk.
 
 <ProductScreenshot
     imageLight="https://res.cloudinary.com/dmukukwp6/image/upload/q_auto,f_auto/pasted_image_2025_12_19_T12_47_09_424_Z_893c3cd740.png"
@@ -57,11 +57,12 @@ When you select sum, you also specify which property to aggregate. For example, 
 
 Here are examples of usage metrics for SaaS products:
 
-| Metric | Events | Aggregation | Property | Use case |
-| --- | --- | --- | --- | --- |
-| API calls | `api_request` | Count | - | Identify heavy API users for expansion |
-| Total revenue | `payment_completed` | Sum | `amount` | Track customer spend over time |
-| Tokens consumed | `llm_request` | Sum | `tokens_used` | Monitor AI usage for billing |
-| Feature adoption | `feature_x_used` | Count | - | Track adoption of new features |
-| Error rate | `$exception` | Count | - | Spot customers hitting issues |
-| Storage used | `file_uploaded` | Sum | `file_size` | Track storage consumption |
+| Metric | Source | Events/Table | Aggregation | Property/Column | Use case |
+| --- | --- | --- | --- | --- | --- |
+| API calls | Events | `api_request` | Count | - | Identify heavy API users for expansion |
+| Total revenue | Events | `payment_completed` | Sum | `amount` | Track customer spend over time |
+| Tokens consumed | Events | `llm_request` | Sum | `tokens_used` | Monitor AI usage for billing |
+| Feature adoption | Events | `feature_x_used` | Count | - | Track adoption of new features |
+| Error rate | Events | `$exception` | Count | - | Spot customers hitting issues |
+| Stripe charges | Data Warehouse | `stripe_charges` | Sum | `amount` | Track revenue from Stripe |
+| Support tickets | Data Warehouse | `zendesk_tickets` | Count | - | Monitor support volume per customer |

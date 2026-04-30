@@ -22,42 +22,47 @@ You can create usage metrics in two ways:
 
 ### Configuration options
 
-| Field               | Description                                                                                |
-| ------------------- | ------------------------------------------------------------------------------------------ |
-| **Name**            | The column title shown in customer lists                                                   |
-| **Interval**        | Time period for the metric: 7, 30, or 90 days                                              |
-| **Format**          | How the value displays: Numeric or currency                                                |
-| **Display**         | How the metric is visualized: Number (default) or Sparkline                                |
-| **Calculation**     | How events are aggregated: Count of events (default) or Sum of property                    |
-| **Property to sum** | The numeric property to sum. Only shown when **Calculation** is set to **Sum of property** |
-| **Match events**    | Which events to include in the metric                                                      |
-| **Filters**         | Additional conditions to narrow down matched events                                        |
+| Field                  | Description                                                                                         |
+| ---------------------- | --------------------------------------------------------------------------------------------------- |
+| **Name**               | The column title shown in customer lists                                                            |
+| **Interval**           | Time period for the metric: 7, 30, or 90 days                                                       |
+| **Format**             | How the value displays: Numeric or currency                                                         |
+| **Display**            | How the metric is visualized: Number (default) or Sparkline                                         |
+| **Calculation**        | How data is aggregated: Count (default) or Sum                                                      |
+| **Property/Column**    | The field to sum. Only shown when **Calculation** is set to **Sum**                                 |
+| **Source**             | Where data comes from: PostHog events (default) or a [Data Warehouse](/docs/data-warehouse) table   |
+
+### Data source
+
+Usage metrics can be created from two sources:
+
+#### Events (default)
+
+Match PostHog events tracked by your application. You can add multiple event matchers to include events matching any of them. For example, to track API usage, match events named `api_request` or `api_call`. Property filters let you narrow down what counts—like only counting successful API calls by filtering for `status = 200`.
+
+#### Data Warehouse
+
+Pull data from a synced [Data Warehouse](/docs/data-warehouse) table. This is useful when the data you want to track lives outside PostHog—for example, Stripe charges, Salesforce records, or any external system synced to your warehouse.
+
+When selecting a Data Warehouse table, you must specify:
+
+| Field                | Description                                                                 |
+| -------------------- | --------------------------------------------------------------------------- |
+| **Table name**       | The synced Data Warehouse table to query                                    |
+| **Timestamp column** | The column (or HogQL expression) used to filter by date range               |
+| **Group key column** | The column whose value matches your customer's identifier (e.g., `customer_id`) |
+
+> **Note:** Data Warehouse metrics currently only render on group profiles. Person profiles are not yet supported.
 
 ### Aggregation type
 
-Choose how the metric calculates values from matched events:
+Choose how the metric calculates values:
 
-- **Count** - Tallies the number of events. Use this for frequency-based metrics like API calls or logins.
-- **Sum** - Totals a numeric property across events. Use this for value-based metrics like revenue or token consumption.
+- **Count** – Tallies the number of events or rows. Use this for frequency-based metrics like API calls or signups.
+- **Sum** – Totals a numeric property or column. Use this for value-based metrics like revenue or token consumption.
 
-When you select **Sum**, you must also specify which property to aggregate. For example, to track total revenue, match `payment_completed` events and sum the `amount` property.
+When you select **Sum**, specify which property (for events) or column (for Data Warehouse) to aggregate. For example, sum the `amount` column on a Stripe charges table to track total revenue.
 
-### Match events
-
-Click **Add event matcher** to specify which events count toward this metric. You can add multiple event matchers, the metric will count events matching any of them.
-
-For example, to track API usage, you might match events named `api_request` or `api_call`.
-
-### Filters
-
-Filters apply to all matched events. Use them to narrow down what counts—for example, only counting successful API calls by filtering for `status = 200`.
-
-### Calculation
-
-Choose how events are aggregated for the metric:
-
-- **Count of events** – Counts the total number of matched events. This is the default.
-- **Sum of property** – Sums the values of a numeric event property across matched events. When selected, a **Property to sum** field appears where you select the property to aggregate. This is useful for tracking cumulative values like API tokens consumed, storage used, or revenue generated.
 
 ### Display
 
