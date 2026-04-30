@@ -22,6 +22,7 @@ You can create usage metrics in two ways:
 
 ### Configuration options
 
+<<<<<<< HEAD
 | Field                  | Description                                                                                         |
 | ---------------------- | --------------------------------------------------------------------------------------------------- |
 | **Name**               | The column title shown in customer lists                                                            |
@@ -31,19 +32,80 @@ You can create usage metrics in two ways:
 | **Calculation**        | How data is aggregated: Count (default) or Sum                                                      |
 | **Property/Column**    | The field to sum. Only shown when **Calculation** is set to **Sum**                                 |
 | **Source**             | Where data comes from: PostHog events (default) or a [Data Warehouse](/docs/data-warehouse) table   |
+||||||| bf5e2a472
+| Field               | Description                                                                                |
+| ------------------- | ------------------------------------------------------------------------------------------ |
+| **Name**            | The column title shown in customer lists                                                   |
+| **Interval**        | Time period for the metric: 7, 30 or 90 days                                               |
+| **Format**          | How the value should be formated: Numeric or currency                                      |
+| **Display**         | How the metric is visualized: Number (default) or Sparkline                                |
+| **Calculation**     | How events are aggregated: Count of events (default) or Sum of property                    |
+| **Property to sum** | The numeric property to sum. Only shown when **Calculation** is set to **Sum of property** |
+| **Match events**    | Which events to count toward this metric                                                   |
+| **Filters**         | Additional conditions to narrow down matched events                                        |
+=======
+| Field               | Description                                                                              |
+| ------------------- | ---------------------------------------------------------------------------------------- |
+| **Name**            | The column title shown in customer lists                                                 |
+| **Interval**        | Time period for the metric: 7, 30 or 90 days                                             |
+| **Format**          | How the value should be formatted: Numeric or currency                                   |
+| **Display**         | How the metric is visualized: Number (default) or Sparkline                              |
+| **Calculation**     | How data is aggregated: Count of events/rows (default) or Sum of property/column         |
+| **Property to sum** | The numeric property or column to sum. Only shown when **Calculation** is set to **Sum** |
+| **Match events**    | Which events or Data Warehouse table to use as the metric source                         |
+| **Filters**         | Additional conditions to narrow down matched events (events source only)                 |
+>>>>>>> master
 
+<<<<<<< HEAD
 ### Data source
+||||||| bf5e2a472
+### Match events
+=======
+### Match events or Data Warehouse table
+>>>>>>> master
 
+<<<<<<< HEAD
 Usage metrics can be created from two sources:
+||||||| bf5e2a472
+Click **Add event matcher** to specify which events count toward this metric. You can add multiple event matchers, the metric will count events matching any of them.
+=======
+Click **Match event or Data Warehouse table** to specify the source for this metric.
+>>>>>>> master
 
+<<<<<<< HEAD
 #### Events (default)
+||||||| bf5e2a472
+For example, to track API usage, you might match events named `api_request` or `api_call`.
+=======
+For **events-based metrics**, you can add multiple event matchers. The metric counts events matching any of them. For example, to track API usage, you might match events named `api_request` or `api_call`.
+
+For **Data Warehouse metrics**, select a Data Warehouse table and configure:
+
+- **Timestamp column** – The column used to filter rows by the metric's date range
+- **Group key column** – The column used to match rows to the correct customer
+
+Each metric uses a single source. You can't mix events and Data Warehouse tables in the same metric.
+
+<CalloutBox icon="IconInfo" title="Limitation" type="fyi">
+
+Data Warehouse usage metrics currently only render on group profiles, not person profiles.
+
+</CalloutBox>
+>>>>>>> master
 
 Match PostHog events tracked by your application. You can add multiple event matchers to include events matching any of them. For example, to track API usage, match events named `api_request` or `api_call`. Property filters let you narrow down what counts—like only counting successful API calls by filtering for `status = 200`.
 
+<<<<<<< HEAD
 #### Data Warehouse
+||||||| bf5e2a472
+Filters apply to all matched events. Use them to narrow down what counts—for example, only counting successful API calls by filtering for `status = 200`.
+=======
+Filters apply to all matched events and are only available for events-based metrics. Use them to narrow down what counts – for example, only counting successful API calls by filtering for `status = 200`.
+>>>>>>> master
 
 Pull data from a synced [Data Warehouse](/docs/data-warehouse) table. This is useful when the data you want to track lives outside PostHog—for example, Stripe charges, Salesforce records, or any external system synced to your warehouse.
 
+<<<<<<< HEAD
 When selecting a Data Warehouse table, you must specify:
 
 | Field                | Description                                                                 |
@@ -62,7 +124,20 @@ Choose how the metric calculates values:
 - **Sum** – Totals a numeric property or column. Use this for value-based metrics like revenue or token consumption.
 
 When you select **Sum**, specify which property (for events) or column (for Data Warehouse) to aggregate. For example, sum the `amount` column on a Stripe charges table to track total revenue.
+||||||| bf5e2a472
+Choose how events are aggregated for the metric:
+=======
+Choose how data is aggregated for the metric:
+>>>>>>> master
 
+<<<<<<< HEAD
+||||||| bf5e2a472
+- **Count of events** – Counts the total number of matched events. This is the default.
+- **Sum of property** – Sums the values of a numeric event property across matched events. When selected, a **Property to sum** field appears where you select the property to aggregate. This is useful for tracking cumulative values like API tokens consumed, storage used, or revenue generated.
+=======
+- **Count of events** (or **Count of rows** for Data Warehouse) – Counts the total number of matched events or rows. This is the default.
+- **Sum of property** (or **Sum of column** for Data Warehouse) – Sums the values of a numeric event property or table column across matched data. When selected, a **Property to sum** (or **Column to sum**) field appears where you select the value to aggregate. This is useful for tracking cumulative values like API tokens consumed, storage used, or revenue generated.
+>>>>>>> master
 
 ### Display
 
@@ -77,3 +152,26 @@ Choose how the metric is visualized on customer profiles:
   alt="Usage metric display options"
   classes="rounded centered"
 />
+
+## Manage usage metrics via MCP
+
+The [PostHog MCP server](/docs/model-context-protocol) enables AI agents to programmatically manage usage metrics. You can create, update, list, and delete usage metrics directly from any MCP client like Cursor, Claude Code, or VS Code.
+
+The following MCP tools are available for usage metrics:
+
+| Tool                           | Description                           |
+| ------------------------------ | ------------------------------------- |
+| `usage-metrics-create`         | Create a new usage metric             |
+| `usage-metrics-list`           | List all usage metrics in the project |
+| `usage-metrics-retrieve`       | Get a single usage metric by ID       |
+| `usage-metrics-partial-update` | Update an existing usage metric       |
+| `usage-metrics-destroy`        | Delete a usage metric                 |
+
+Try these example prompts with your MCP-enabled agent:
+
+- `List all usage metrics in my project.`
+- `Create a usage metric that counts api_request events over the last 30 days.`
+- `Update my API calls metric to use a 90-day interval.`
+- `Delete the usage metric with ID 123.`
+
+See the [MCP server documentation](/docs/model-context-protocol) for setup instructions.

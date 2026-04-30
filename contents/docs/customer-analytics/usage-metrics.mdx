@@ -4,19 +4,26 @@ sidebar: Docs
 showTitle: true
 ---
 
-import CustomerAnalyticsBetaWarning from './_snippets/customer-analytics-beta-warning.mdx'
+import CustomerAnalyticsBetaWarning from "./_snippets/customer-analytics-beta-warning.mdx";
 
 <CustomerAnalyticsBetaWarning />
 
+<<<<<<< HEAD
 Usage metrics let you define global activity measurements and track them for each customer. You can create metrics from PostHog events or from data in your [Data Warehouse](/docs/data-warehouse)—like Stripe charges or Salesforce records. This gives you an at-a-glance view of customer activity to identify expansion opportunities or churn risk.
+||||||| bf5e2a472
+Usage metrics let you define global activity measurements and track them for each customer. Any event performed by your users can be turned into usage metrics, so that you can understand their activity at a glance and identify expansion opportunities or churn risk
+=======
+Usage metrics let you define global activity measurements and track them for each customer. Any event performed by your users – or data from your [Data Warehouse](/docs/data-warehouse) tables – can be turned into usage metrics, so that you can understand their activity at a glance and identify expansion opportunities or churn risk.
+>>>>>>> master
 
 <ProductScreenshot
-    imageLight="https://res.cloudinary.com/dmukukwp6/image/upload/q_auto,f_auto/pasted_image_2025_12_19_T12_47_09_424_Z_893c3cd740.png"
-    imageDark="https://res.cloudinary.com/dmukukwp6/image/upload/q_auto,f_auto/pasted_image_2025_12_19_T12_46_51_933_Z_ef9223c947.png"
-    alt="Usage metrics in customer profile"
-    classes="rounded"
+  imageLight="https://res.cloudinary.com/dmukukwp6/image/upload/q_auto,f_auto/pasted_image_2025_12_19_T12_47_09_424_Z_893c3cd740.png"
+  imageDark="https://res.cloudinary.com/dmukukwp6/image/upload/q_auto,f_auto/pasted_image_2025_12_19_T12_46_51_933_Z_ef9223c947.png"
+  alt="Usage metrics in customer profile"
+  classes="rounded"
 />
 
+<<<<<<< HEAD
 ## Why usage metrics matter
 
 Usage metrics surface customer health signals you'd otherwise need custom dashboards to see. They help you:
@@ -53,10 +60,15 @@ Sum aggregation totals a numeric property value across all matched events. Use t
 
 When you select sum, you also specify which property to aggregate. For example, sum the `amount` property on `payment_completed` events to track total revenue.
 
+||||||| bf5e2a472
+
+=======
+>>>>>>> master
 ## Example usage metrics
 
 Here are examples of usage metrics for SaaS products:
 
+<<<<<<< HEAD
 | Metric | Source | Events/Table | Aggregation | Property/Column | Use case |
 | --- | --- | --- | --- | --- | --- |
 | API calls | Events | `api_request` | Count | - | Identify heavy API users for expansion |
@@ -66,3 +78,36 @@ Here are examples of usage metrics for SaaS products:
 | Error rate | Events | `$exception` | Count | - | Spot customers hitting issues |
 | Stripe charges | Data Warehouse | `stripe_charges` | Sum | `amount` | Track revenue from Stripe |
 | Support tickets | Data Warehouse | `zendesk_tickets` | Count | - | Monitor support volume per customer |
+||||||| bf5e2a472
+| Metric | Events to match | Use case |
+| --- | --- | --- |
+| API calls | `api_request` | Identify heavy API users for expansion |
+| Feature adoption | `feature_x_used` | Track adoption of new features |
+| Error rate | `$exception` | Spot customers hitting issues |
+| Export usage | `export_created` | Find power users |
+=======
+| Metric           | Events to match  | Use case                               |
+| ---------------- | ---------------- | -------------------------------------- |
+| API calls        | `api_request`    | Identify heavy API users for expansion |
+| Feature adoption | `feature_x_used` | Track adoption of new features         |
+| Error rate       | `$exception`     | Spot customers hitting issues          |
+| Export usage     | `export_created` | Find power users                       |
+
+## Data Warehouse metrics
+
+You can also create usage metrics from [Data Warehouse](/docs/data-warehouse) tables. This is useful when your usage or billing data lives outside of PostHog events – for example, in Stripe or your own database.
+
+When creating a Data Warehouse metric, you specify:
+
+- **Table** – The Data Warehouse table to query
+- **Timestamp column** – The column used to filter rows by date range
+- **Group key column** – The column used to match rows to customers
+
+Each Data Warehouse metric is limited to a single table.
+
+<CalloutBox icon="IconInfo" title="Limitation" type="fyi">
+
+Data Warehouse usage metrics currently only render on group profiles, not person profiles.
+
+</CalloutBox>
+>>>>>>> master
